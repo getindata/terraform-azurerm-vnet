@@ -7,4 +7,6 @@ locals {
 
   location            = coalesce(one(data.azurerm_resource_group.this[*].location), var.location)
   resource_group_name = coalesce(one(data.azurerm_resource_group.this[*].name), var.resource_group_name)
+
+  subnet_names_prefixes = zipmap(var.subnet_names, var.subnet_prefixes)
 }
