@@ -8,5 +8,8 @@ locals {
   location            = coalesce(one(data.azurerm_resource_group.this[*].location), var.location)
   resource_group_name = coalesce(one(data.azurerm_resource_group.this[*].name), var.resource_group_name)
 
+  enabled             = module.this.enabled
+  nat_gateway_enabled = local.enabled && var.nat_gateway.enabled
+
   subnet_names_prefixes = zipmap(var.subnet_names, var.subnet_prefixes)
 }

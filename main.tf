@@ -1,11 +1,11 @@
 data "azurerm_resource_group" "this" {
-  count = module.this.enabled && var.location == null ? 1 : 0
+  count = local.enabled && var.location == null ? 1 : 0
 
   name = var.resource_group_name
 }
 
 resource "azurerm_virtual_network" "this" {
-  count = module.this.enabled ? 1 : 0
+  count = local.enabled ? 1 : 0
 
   name = local.name_from_descriptor
 
@@ -29,12 +29,12 @@ resource "azurerm_virtual_network" "this" {
 }
 
 resource "azurerm_subnet" "this" {
-  for_each = module.this.enabled ? toset(var.subnet_names) : []
+  for_each = local.enabled ? toset(var.subnet_names) : []
 
   address_prefixes                              = [local.subnet_names_prefixes[each.value]]
   name                                          = each.value
   resource_group_name                           = local.resource_group_name
-  virtual_network_name                          = one(azurerm_virtual_network.this).name
+  virtual_network_name                          = one(azurerm_virtual_network.this[*].name)
   private_endpoint_network_policies_enabled     = lookup(var.subnet_private_endpoint_network_policies_enabled, each.value, false)
   private_link_service_network_policies_enabled = lookup(var.subnet_private_link_service_network_policies_enabled, each.value, false)
   service_endpoints                             = lookup(var.subnet_service_endpoints, each.value, null)
@@ -54,14 +54,14 @@ resource "azurerm_subnet" "this" {
 }
 
 resource "azurerm_subnet_network_security_group_association" "vnet" {
-  for_each = module.this.enabled ? var.nsg_ids : {}
+  for_each = local.enabled ? var.nsg_ids : {}
 
   network_security_group_id = each.value
   subnet_id                 = azurerm_subnet.this[each.key].id
 }
 
 resource "azurerm_subnet_route_table_association" "vnet" {
-  for_each = module.this.enabled ? var.route_tables_ids : {}
+  for_each = local.enabled ? var.route_tables_ids : {}
 
   route_table_id = each.value
   subnet_id      = azurerm_subnet.this[each.key].id
@@ -69,10 +69,10 @@ resource "azurerm_subnet_route_table_association" "vnet" {
 
 module "nat_gateway" {
   source  = "getindata/nat-gateway/azurerm"
-  version = "1.0.3"
+  version = "1.0.2"
   context = module.this.context
 
-  enabled = var.nat_gateway.enabled
+  enabled = local.nat_gateway_enabled
 
   location            = local.location
   resource_group_name = local.resource_group_name
@@ -91,7 +91,7 @@ module "nat_gateway" {
 }
 
 module "diagnostic_settings" {
-  count = module.this.enabled && var.diagnostic_settings.enabled != null ? 1 : 0
+  count = local.enabled && var.diagnostic_settings.enabled != null ? 1 : 0
 
   source  = "claranet/diagnostic-settings/azurerm"
   version = "6.2.0"

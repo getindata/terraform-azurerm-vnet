@@ -47,7 +47,7 @@ variable "ddos_protection_plan" {
 }
 
 variable "dns_servers" {
-  description = "The DNS servers to be used with vNet."
+  description = "The DNS servers to be used with vNet"
   type        = list(string)
   default     = []
 }

@@ -57,7 +57,7 @@ module "vnet" {
 | <a name="input_descriptor_formats"></a> [descriptor\_formats](#input\_descriptor\_formats) | Describe additional descriptors to be output in the `descriptors` output map.<br>Map of maps. Keys are names of descriptors. Values are maps of the form<br>`{<br>   format = string<br>   labels = list(string)<br>}`<br>(Type is `any` so the map values can later be enhanced to provide additional options.)<br>`format` is a Terraform format string to be passed to the `format()` function.<br>`labels` is a list of labels, in order, to pass to `format()` function.<br>Label values will be normalized before being passed to `format()` so they will be<br>identical to how they appear in `id`.<br>Default is `{}` (`descriptors` output will be empty). | `any` | `{}` | no |
 | <a name="input_descriptor_name"></a> [descriptor\_name](#input\_descriptor\_name) | Name of the descriptor used to form a resource name | `string` | `"azure-vnet"` | no |
 | <a name="input_diagnostic_settings"></a> [diagnostic\_settings](#input\_diagnostic\_settings) | Enables diagnostics settings for a resource and streams the logs and metrics to any provided sinks | <pre>object({<br>    enabled               = optional(bool, false)<br>    logs_destinations_ids = optional(list(string), [])<br>  })</pre> | `{}` | no |
-| <a name="input_dns_servers"></a> [dns\_servers](#input\_dns\_servers) | The DNS servers to be used with vNet. | `list(string)` | `[]` | no |
+| <a name="input_dns_servers"></a> [dns\_servers](#input\_dns\_servers) | The DNS servers to be used with vNet | `list(string)` | `[]` | no |
 | <a name="input_enabled"></a> [enabled](#input\_enabled) | Set to false to prevent the module from creating any resources | `bool` | `null` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT' | `string` | `null` | no |
 | <a name="input_id_length_limit"></a> [id\_length\_limit](#input\_id\_length\_limit) | Limit `id` to this many characters (minimum 6).<br>Set to `0` for unlimited length.<br>Set to `null` for keep the existing setting, which defaults to `0`.<br>Does not affect `id_full`. | `number` | `null` | no |
@@ -88,7 +88,7 @@ module "vnet" {
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_diagnostic_settings"></a> [diagnostic\_settings](#module\_diagnostic\_settings) | claranet/diagnostic-settings/azurerm | 6.2.0 |
-| <a name="module_nat_gateway"></a> [nat\_gateway](#module\_nat\_gateway) | getindata/nat-gateway/azurerm | 1.0.3 |
+| <a name="module_nat_gateway"></a> [nat\_gateway](#module\_nat\_gateway) | getindata/nat-gateway/azurerm | 1.0.2 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
 ## Outputs
