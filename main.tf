@@ -69,7 +69,7 @@ resource "azurerm_subnet_route_table_association" "vnet" {
 
 module "nat_gateway" {
   source  = "getindata/nat-gateway/azurerm"
-  version = "1.0.2"
+  version = "1.0.3"
   context = module.this.context
 
   enabled = var.nat_gateway.enabled

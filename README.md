@@ -88,7 +88,7 @@ module "vnet" {
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_diagnostic_settings"></a> [diagnostic\_settings](#module\_diagnostic\_settings) | claranet/diagnostic-settings/azurerm | 6.2.0 |
-| <a name="module_nat_gateway"></a> [nat\_gateway](#module\_nat\_gateway) | getindata/nat-gateway/azurerm | 1.0.2 |
+| <a name="module_nat_gateway"></a> [nat\_gateway](#module\_nat\_gateway) | getindata/nat-gateway/azurerm | 1.0.3 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
 ## Outputs
