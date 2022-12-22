@@ -1,21 +1,21 @@
 output "name" {
   description = "Name of the VNET"
-  value       = one(azurerm_virtual_network.this).name
+  value       = one(azurerm_virtual_network.this[*].name)
 }
 
 output "id" {
   description = "ID of the VNET"
-  value       = one(azurerm_virtual_network.this).id
+  value       = one(azurerm_virtual_network.this[*].id)
 }
 
 output "resource_group_name" {
   description = "Name of the VNET resource group"
-  value       = one(azurerm_virtual_network.this).resource_group_name
+  value       = one(azurerm_virtual_network.this[*].resource_group_name)
 }
 
 output "address_space" {
   description = "The address space of the VNET"
-  value       = one(azurerm_virtual_network.this).address_space
+  value       = one(azurerm_virtual_network.this[*].address_space)
 }
 
 output "subnets" {
