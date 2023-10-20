@@ -96,7 +96,7 @@ module "diagnostic_settings" {
   count = local.enabled && var.diagnostic_settings.enabled != null ? 1 : 0
 
   source  = "claranet/diagnostic-settings/azurerm"
-  version = "6.2.0"
+  version = "6.5.0"
 
   resource_id           = one(azurerm_virtual_network.this[*].id)
   logs_destinations_ids = var.diagnostic_settings.logs_destinations_ids
