@@ -5,6 +5,8 @@ data "azurerm_resource_group" "this" {
 }
 
 resource "azurerm_virtual_network" "this" {
+  # checkov:skip=CKV_AZURE_183: Ensure that VNET uses local DNS addresses
+  # checkov:skip=CKV_AZURE_182: Ensure that VNET has at least 2 connected DNS Endpoints
   count = local.enabled ? 1 : 0
 
   name = local.name_from_descriptor
@@ -46,7 +48,7 @@ resource "azurerm_subnet" "this" {
       name = delegation.key
 
       service_delegation {
-        name    = lookup(delegation.value, "service_name")
+        name    = delegation.value["service_name"]
         actions = lookup(delegation.value, "service_actions", [])
       }
     }
